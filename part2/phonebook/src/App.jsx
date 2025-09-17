@@ -1,4 +1,7 @@
+import Filter from './Filter'
 import { useState } from 'react'
+import PersonForm from './PersonForm'
+import People from './People'
 
 const App = () => {
     const [persons, setPersons] = useState([
@@ -9,42 +12,22 @@ const App = () => {
     ])
     const [newName, setNewName] = useState('')
     const [newNumber, setNewNumber] = useState('')
-
-    const handleChange = e => {
-        setNewName(e.target.value)
-    }
-    const handleChangeNumber = e => setNewNumber(e.target.value)
-
-    const addName = (event) => {
-        event.preventDefault()
-        if (persons.some(person => person.name === newName || person.number === newNumber)) {
-            alert(`${newName} is already added to phonebook`)
-            setNewName('')
-            setNewNumber('')
-        } else {
-            const nameInput = {name: newName, number: newNumber, id: persons.length + 1}
-            setPersons(persons.concat(nameInput))
-            console.log('name added', nameInput)
-            setNewName('')
-            setNewNumber('')
-        }
-    }
+    const [filter, setFilter] = useState('')
     return (
         <div>
             <h2>Phonebook</h2>
-            <form onSubmit={addName}>
-                <div>name: <input placeholder="Add name..." value={newName} onChange={handleChange} /></div>
-                <div>number: <input placeholder="Add number..." value={newNumber} onChange={handleChangeNumber} /></div>
-                <div>
-                    <button type="submit">add</button>
-                </div>
-            </form>
-            <h2>Numbers</h2>
-            <ul>
-                {persons.map((person) =>
-                    <li key={person.id}>{person.name} {person.number}</li>
-                )}
-            </ul>
+            <Filter filter={filter} setFilter={setFilter} />
+            <h3>add a new</h3>
+            <PersonForm
+              newName={newName}
+              newNumber={newNumber}
+              persons={persons}
+              setPersons={setPersons}
+              setNewName={setNewName}
+              setNewNumber={setNewNumber}
+            />
+            <h3>Numbers</h3>
+            <People persons={persons} filter={filter} />
 
         </div>
     )
