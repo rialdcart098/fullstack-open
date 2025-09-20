@@ -13,7 +13,14 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
         const existingPerson = persons.find(person => person.name === newName || person.number === newNumber)
         if (existingPerson) {
             const error = existingPerson.name === newName ? newName : newNumber
-            alert(`${error} is already added to phonebook`)
+            if (window.confirm(`${error} exists. replace details?`)){
+                newObject = {name: newName, number: newNumber, id: String(Date.now())}
+                axios
+                    .put(`http://localhost:3001/notes/${existingPerson.id}`, newObject)
+                    .then(res => {
+                        setPersons(persons.map(person => person.id === existingPerson.id ? res.data : person))
+                    })
+            }
             setNewName('')
             setNewNumber('')
         } else {
@@ -23,6 +30,7 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
                 .then(res => {
                     setPersons(persons.concat(res))
                     setNewName('')
+                    setNewNumber('')
                 })
 
             // axios
