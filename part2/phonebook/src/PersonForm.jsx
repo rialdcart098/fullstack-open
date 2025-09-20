@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import axios from 'axios'
+import personService from './components/persons'
 
 const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNewNumber }) => {
     const handleChange = e => {
@@ -15,11 +17,20 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
             setNewName('')
             setNewNumber('')
         } else {
-            const nameInput = {name: newName, number: newNumber, id: persons.length + 1}
-            setPersons(persons.concat(nameInput))
-            console.log('name added', nameInput)
-            setNewName('')
-            setNewNumber('')
+            const nameObject = {name: newName, number: newNumber, id: String(Date.now())}
+            personService
+                .addName(nameObject)
+                .then(res => {
+                    setPersons(persons.concat(res))
+                    setNewName('')
+                })
+
+            // axios
+            //     .post('http://localhost:3001/persons', nameInput)
+            //     .then(res => {
+            //         setPersons(persons.concat(res.data))
+            //         setNewName('')
+            //     })
         }
     }
     return (

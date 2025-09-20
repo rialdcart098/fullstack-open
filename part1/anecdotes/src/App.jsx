@@ -18,7 +18,7 @@ const App = () => {
     const [selected, setSelected] = useState(0)
     const copy = [...votes]
     const maxIndex = copy.indexOf(Math.max(...copy))
-
+    
     return (
         <div>
             <h1>Anecdote of the day</h1>
