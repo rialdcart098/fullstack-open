@@ -11,6 +11,12 @@ const addName = object => {
     const request = axios.post(url, object)
     return request.then(res => res.data)
 }
+
+const update = (id, newObject) => {
+    const request = axios.put(`${url}/${id}`, newObject)
+    return request.then(res => res.data)
+}
+
 const remove = id => {
     const request = axios.delete(`${url}/${id}`)
     return request.then(res => res.data)
@@ -19,5 +25,6 @@ const remove = id => {
 export default {
     load,
     addName,
-    remove
+    update,
+    remove,
 }

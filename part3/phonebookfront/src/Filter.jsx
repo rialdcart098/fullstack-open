@@ -1,6 +1,4 @@
-import { useState } from 'react'
-
-const Filter = ({ filter, setFilter }) => {
+const Filter = ({filter, setFilter}) => {
     const handleFilterChange = e => setFilter(e.target.value)
     return (
         <div>

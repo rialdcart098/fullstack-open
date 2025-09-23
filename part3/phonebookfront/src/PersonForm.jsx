@@ -1,8 +1,11 @@
 import {useState} from 'react'
-import axios from 'axios'
+import './index.css'
 import personService from './components/persons'
 
-const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNewNumber }) => {
+const PersonForm = ({ setCondition, persons, setPersons, setMessage }) => {
+    const [newName, setNewName] = useState('')
+    const [newNumber, setNewNumber] = useState('')
+
     const handleChange = e => {
         setNewName(e.target.value)
     }
@@ -14,11 +17,14 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
         if (existingPerson) {
             const error = existingPerson.name === newName ? newName : newNumber
             if (window.confirm(`${error} exists. replace details?`)){
-                newObject = {name: newName, number: newNumber, id: String(Date.now())}
-                axios
-                    .put(`http://localhost:3001/notes/${existingPerson.id}`, newObject)
+                const newObject = {name: newName, number: newNumber, id: String(Date.now())}
+                personService
+                    .update(existingPerson.id, newObject)
                     .then(res => {
-                        setPersons(persons.map(person => person.id === existingPerson.id ? res.data : person))
+                        setPersons(persons.map(person => person.id === existingPerson.id ? res : person))
+                        setCondition(true)
+                        setMessage(`Updated ${newName}`)
+                        setTimeout(() => setMessage(''), 5000)
                     })
             }
             setNewName('')
@@ -29,16 +35,13 @@ const PersonForm = ({ newName, newNumber, persons, setPersons, setNewName, setNe
                 .addName(nameObject)
                 .then(res => {
                     setPersons(persons.concat(res))
+                    setCondition(true)
+                    setMessage(`Added ${newName}!`)
+                    setTimeout(() => setMessage(''), 5000)
                     setNewName('')
                     setNewNumber('')
-                })
 
-            // axios
-            //     .post('http://localhost:3001/persons', nameInput)
-            //     .then(res => {
-            //         setPersons(persons.concat(res.data))
-            //         setNewName('')
-            //     })
+                })
         }
     }
     return (
