@@ -1,4 +1,4 @@
-import personService from './components/persons'
+import personService from './components/persons.js'
 const People  = ({ setPersons, setMessage, persons, filterText, setCondition }) => {
     const removeButton = id => {
         const name = persons.find(person => person.id === id).name

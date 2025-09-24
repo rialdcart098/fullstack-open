@@ -18,52 +18,72 @@
     {
       "id": "4",
       "content": "whats up",
-      "important": false
+      "important": true
     },
     {
       "id": "5",
       "content": "owafjasjfjse",
-      "important": false
+      "important": true
     },
     {
       "id": "6",
       "content": "asdasd",
-      "important": false
+      "important": true
     },
     {
       "id": "7",
       "content": "\" asdjkasjdjasdj",
-      "important": false
+      "important": true
     },
     {
       "id": "8",
       "content": "\"asdasdasdasdasda",
-      "important": false
+      "important": true
     },
     {
       "id": "9",
       "content": "asdf",
-      "important": false
+      "important": true
     },
     {
       "id": "10",
       "content": "a new note...",
-      "important": false
+      "important": true
     },
     {
       "id": "11",
       "content": "",
-      "important": false
+      "important": true
     },
     {
       "id": "12",
       "content": "",
-      "important": false
+      "important": true
     },
     {
       "id": "13",
       "content": "",
+      "important": true
+    },
+    {
+      "id": "14",
+      "content": "For elimination the operation...",
+      "important": true
+    },
+    {
+      "id": "15",
+      "content": "Will bring our operatin",
       "important": false
+    },
+    {
+      "id": "16",
+      "content": "sadfafdsfdas",
+      "important": true
+    },
+    {
+      "id": "17",
+      "content": "asfasfafff",
+      "important": true
     }
   ]
 }

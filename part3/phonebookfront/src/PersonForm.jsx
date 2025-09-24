@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import './index.css'
-import personService from './components/persons'
+import personService from './components/persons.js'
 
 const PersonForm = ({ setCondition, persons, setPersons, setMessage }) => {
     const [newName, setNewName] = useState('')
