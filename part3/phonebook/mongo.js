@@ -1,8 +1,5 @@
 const mongoose = require('mongoose')
-if (process.argv.length !== 5 && process.argv.length !== 3){
-    console.log('put in all details');
-    process.exit(1)
-}
+
 const [,, password, name, number] = process.argv;
 const url = `mongodb+srv://rialdcart098:${password}@cluster0.fgzzmt0.mongodb.net/phonebook?retryWrites=true&w=majority&appName=Cluster0`
 mongoose.set('strictQuery', false)
