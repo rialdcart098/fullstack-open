@@ -42,6 +42,14 @@ const PersonForm = ({ setCondition, persons, setPersons, setMessage }) => {
                     setNewNumber('')
 
                 })
+                .catch(err => {
+                    console.log(err.response.data.error)
+                    setCondition(false)
+                    setMessage('Please put in correct details.')
+                    setTimeout(() => setMessage(''), 5000)
+                    setNewName('')
+                    setNewNumber('')
+                })
         }
     }
     return (
