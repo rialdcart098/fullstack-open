@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const logger = require('./utils/logger')
 const config = require('./utils/config')
 const middleware = require('./utils/middleware')
-
+const path = require('path')
 
 const app = express()
 mongoose
@@ -16,6 +16,7 @@ mongoose
     logger.error('Failed to connect to MongoDB:', err.message)
   })
 app.use(express.json())
+app.use('/', express.static(path.join('..', 'blogsfront', 'dist')))
 app.use('/api/blogs', blogsRouter)
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
