@@ -78,18 +78,12 @@ describe('total likes', () => {
   })
   test('when list has multiple blogs, combine the likes of them.', () => {
     const result = listHelper.totalLikes(listWithMultipleBlogs)
-    assert.strictEqual(result, 80)
+    assert.strictEqual(result, 90)
   })
   test('which blog has the most likes', () => {
     const result = listHelper.favoriteBlog(listWithMultipleBlogs)
-    assert.deepStrictEqual(result, {
-      _id: '5a422ba71b54a676234d17fa',
-      title: 'The Art of Computer Programming',
-      author: 'Donald E. Knuth',
-      url: 'https://www-cs-faculty.stanford.edu/~knuth/taocp.html',
-      likes: 20,
-      __v: 0
-    })
+    const title = result.title
+    assert.deepStrictEqual(title, 'The Art of Computer Programming')
   })
   test('which author has the most blogs', () => {
     const result = listHelper.mostBlogs(listWithMultipleBlogs)

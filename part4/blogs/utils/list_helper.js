@@ -9,7 +9,7 @@ const totalLikes = blog => {
 const favoriteBlog = blogs => {
   if (blogs.length === 0) return {}
   const max = Math.max(...blogs.map(blog => blog.likes))
-  return blogs.filter(blog => blog.likes === max)
+  return blogs.filter(blog => blog.likes === max)[0]
 }
 const mostBlogs = blogs => {
   if (blogs.length === 0) return {}
