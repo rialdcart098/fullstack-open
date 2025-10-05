@@ -15,7 +15,11 @@ function App() {
     const handleChange = (setter) => (event) => {
         setter(event.target.value)
     }
-
+    const clear = () => {
+      setNewTitle('')
+      setNewAuthor('')
+      setNewUrl('')
+    }
     useEffect(() => {
         axios
             .get('/api/blogs')
@@ -23,7 +27,13 @@ function App() {
                 setBlogs(response.data)
             })
     }, [])
-
+    const updateLikes = async (id) => {
+      const blog = blogs.find(blog => blog.id === id)
+      const updatedBlog = {...blog}
+      const response = await axios
+        .put(`/api/blogs/${blog.id}`, updatedBlog)
+      setBlogs(blogs.map(b => b.id === id ? response.data : b))
+    }
     const addBlog = (event) => {
         event.preventDefault()
         const blogObject = {
@@ -38,11 +48,8 @@ function App() {
                 setBlogs(blogs.concat(response.data))
                 setError(false)
                 setNotification('Added blog!')
-                setNewTitle('')
-                setNewAuthor('')
-                setNewUrl('')
+                clear()
             })
-
     }
 
     return (
@@ -59,6 +66,9 @@ function App() {
                     <div key={blog.id}>
                         {blog.title} by {blog.author}{' '}
                         <a href={blog.url}>check it here</a>
+                        <br />
+                        Likes: {blog.likes}
+                        <button onClick={() => updateLikes(blog.id)}>👍</button>
                     </div>
                 ))}
 
