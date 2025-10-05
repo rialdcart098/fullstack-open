@@ -1,10 +1,11 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imdlb3JnZXJ1c3NlbGwiLCJpZCI6IjY4ZTI3OWI4ZmNkN2IwMzcxNGFhZjY1NiIsImlhdCI6MTc1OTY4NjI2NywiZXhwIjoxNzU5Njg5ODY3fQ.iKle-Oz3AjJzAnD0LL0edBLjtI5P9QrZZUFKYIIzuTA
 
 {
-  "title": "Blog Title",
-  "author": "Author Name",
-  "url": "http://example.com",
+  "title": "Life at Mercedes",
+  "author": "Kimi Antonelli",
+  "url": "http://mercedes.com",
   "likes": 0,
-  "userId": "68e08a61cee3fd161bfbde48"
+  "userId": "68e279b8fcd7b03714aaf656"
 }
