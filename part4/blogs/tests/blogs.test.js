@@ -49,17 +49,22 @@ describe('With the current blog data', () => {
   })
   describe('When adding data', async () => {
     test('A valid blog can be added', async () => {
-      const user = await User.findOne({})
-      const userId = user._id.toString()
+      const tokenResponse = await api
+        .post('/api/login')
+        .send({
+          username: 'lewishamilton',
+          password: 'password123'
+        })
+      const token = tokenResponse.body.token
       const newBlog = {
         author: 'Thierry Henry',
         title: 'The French Usain Bolt',
         url: 'https://netflix.com/',
         likes: 12,
-        userId: userId
       }
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -69,16 +74,21 @@ describe('With the current blog data', () => {
       assert.strictEqual(authors.includes('Thierry Henry'), true)
     })
     test('If the likes property is missing, it will default to 0', async () => {
-      const user = await User.findOne({})
-      const userId = user._id.toString()
       const newBlog = {
         author: 'Cristiano Ronaldo',
         title: 'The GOAT',
         url: 'https://google.com/',
-        userId
       }
+      const tokenResponse = await api
+        .post('/api/login')
+        .send({
+          username: 'lewishamilton',
+          password: 'password123'
+        })
+      const token = tokenResponse.body.token
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlog)
         .expect(201)
         .expect('Content-Type', /application\/json/)
@@ -92,10 +102,33 @@ describe('With the current blog data', () => {
       author: 'Neymar Jr',
       likes: 15
     }
+    const tokenResponse = await api
+      .post('/api/login')
+      .send({
+        username: 'lewishamilton',
+        password: 'password123'
+      })
+    const token = tokenResponse.body.token
     await api
       .post('/api/blogs')
+      .set('Authorization', `Bearer ${token}`)
       .send(newBlog)
       .expect(400)
+    const endBlogs = await helper.blogsInDb()
+    assert.strictEqual(endBlogs.length, helper.initialBlog.length)
+  })
+  test('Invalid token returns 401 Unauthorized', async () => {
+    const newBlog = {
+      author: 'michaelschumacher',
+      title: 'F1 Legend',
+      url: 'https://f1.com/',
+      likes: 20
+    }
+    await api
+      .post('/api/blogs')
+      .set('Authorization', 'Bearer bear')
+      .send(newBlog)
+      .expect(401)
     const endBlogs = await helper.blogsInDb()
     assert.strictEqual(endBlogs.length, helper.initialBlog.length)
   })

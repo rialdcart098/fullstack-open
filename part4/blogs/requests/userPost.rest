@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imdlb3JnZXJ1c3NlbGwiLCJpZCI6IjY4ZTI3OWI4ZmNkN2IwMzcxNGFhZjY1NiIsImlhdCI6MTc1OTY4NjI2NywiZXhwIjoxNzU5Njg5ODY3fQ.iKle-Oz3AjJzAnD0LL0edBLjtI5P9QrZZUFKYIIzuTA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imdlb3JnZXJ1c3NlbGwiLCJpZCI6IjY4ZTI3OWI4ZmNkN2IwMzcxNGFhZjY1NiIsImlhdCI6MTc1OTcwNTM2NywiZXhwIjoxNzU5NzA4OTY3fQ.bntpLRPc3V16HrxgVz16RZv9tOyHD_4KymkkauU_LI0
 
 {
   "title": "Life at Mercedes",
