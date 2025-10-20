@@ -2,7 +2,7 @@ import { useState } from 'react'
 import TextInput from './TextInput'
 import blogService from '../services/blogs'
 
-const BlogForm = ({ setBlogs, blogs, setNotification, setGood }) => {
+const BlogForm = ({ setBlogs, blogs, setNotification, toggleVisibility }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -12,14 +12,13 @@ const BlogForm = ({ setBlogs, blogs, setNotification, setGood }) => {
     try {
       const newBlog = await blogService.create({ title, author, url })
       setBlogs(blogs.concat(newBlog))
-      setGood(true)
-      setNotification('Added blog')
+      setNotification({message: 'Added blog', good: true})
+      toggleVisibility()
       setTitle('')
       setAuthor('')
       setUrl('')
     } catch {
-      setGood(false)
-      setNotification('Input all details')
+      setNotification({message: 'Input all details', good: false })
     }
   }
   return (

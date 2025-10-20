@@ -42,14 +42,14 @@ blogsRouter.delete('/:id', async (request, response) => {
   response.status(204).end()
 })
 blogsRouter.put('/:id', async (request, response) => {
-  const { title, author, url, likes } = request.body
-  const updatedBlog = await Blog.findById(request.params.id)
-  if (!updatedBlog) return response.status(404).end()
-  updatedBlog.title = title
-  updatedBlog.author = author
-  updatedBlog.url = url
-  updatedBlog.likes = likes + 1
-  const savedBlog = await updatedBlog.save()
-  response.json(savedBlog)
+  const decodedToken = jwt.verify(request.token, process.env.SECRET)
+  if (!decodedToken.id) return response.status(401).json({ error: 'token missing or invalid' })
+  const user = await User.findById(decodedToken.id)
+  if (!user) return response.status(400).json({ error: 'User not found' })
+  const blog = await Blog.findById(request.params.id)
+  if (!blog) return response.status(404).end()
+  blog.likes++
+  const updatedBlog = await blog.save()
+  response.json(updatedBlog)
 })
 module.exports = blogsRouter

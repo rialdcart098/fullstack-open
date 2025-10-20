@@ -1,8 +1,9 @@
 import loginService from '../services/login'
+import blogService from '../services/blogs'
 import TextInput from './TextInput'
 import { useState } from 'react'
 
-const Login = ({ setUser, setNotification, setGood }) => {
+const Login = ({ setUser, setNotification }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -11,14 +12,13 @@ const Login = ({ setUser, setNotification, setGood }) => {
     try {
       const user = await loginService.login({ username, password })
       window.localStorage.setItem('user', JSON.stringify(user))
+      blogService.setToken(user.token)
       setUser(user)
       setUsername('')
       setPassword('')
-      setGood(true)
-      setNotification(`Welcome back ${user.name}`)
+      setNotification({message: `Welcome back ${user.name}`, good: true})
     } catch {
-      setGood(false)
-      setNotification('Username or password is incorrect')
+      setNotification({message: 'Username or password is incorrect', good: false})
     }
   }
   return (

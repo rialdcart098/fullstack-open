@@ -4,6 +4,7 @@ import Blog from './components/Blog'
 import Login from './components/Login'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 
 import blogService from './services/blogs'
 
@@ -11,7 +12,7 @@ const App = () => {
   const [blogs, setBlogs] = useState([])
   const [user, setUser] = useState(null)
   const [notification, setNotification] = useState(null)
-  const [good, setGood] = useState(true)
+  const [visible, setVisible] = useState(false)
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs(blogs)
@@ -29,24 +30,39 @@ const App = () => {
   const logOut = () => {
     window.localStorage.removeItem('user')
     setUser(null)
-    setGood(true)
-    setNotification('Logged out')
+    setNotification({ message: 'Logged out successfully', good: true })
   }
   return (
     <div>
       <h2>Blogs</h2>
-      <Notification notification={notification} setNotification={setNotification} good={good} />
+      <Notification notification={notification} setNotification={setNotification} />
       {user && (
         <div>
           <p>{user.name} logged in</p>
           <button onClick={logOut}>Log Out</button>
-          <BlogForm setBlogs={setBlogs} blogs={blogs} setNotification={setNotification} setGood={setGood} />
-          {blogs.map(blog =>
-            <Blog key={blog.id} blog={blog} />
-          )}
+          <Togglable
+            visible={visible}
+            toggleVisibility={() => setVisible(!visible)}
+            buttonLabel="Add Blog"
+          >
+            <h2>Add a blog</h2>
+            <BlogForm setBlogs={setBlogs} blogs={blogs} setNotification={setNotification} toggleVisibility={() => setVisible(!visible)} />
+          </Togglable>
         </div>
       )}
-      {!user && <Login setUser={setUser} setNotification={setNotification} setGood={setGood} />}
+      {blogs.sort((a, b) => b.likes - a.likes).map(blog =>
+        <Blog key={blog.id} blog={blog} />
+      )}
+      {!user && (
+        <Togglable
+          visible={visible}
+          toggleVisibility={() => setVisible(!visible)}
+          buttonLabel="Log In"
+        >
+          <h2>Log In</h2>
+          <Login setUser={setUser} setNotification={setNotification} />
+        </Togglable>
+      )}
     </div>
   )
 }
