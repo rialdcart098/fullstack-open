@@ -12,6 +12,7 @@ const Login = ({ setUser, setNotification }) => {
     try {
       const user = await loginService.login({ username, password })
       window.localStorage.setItem('user', JSON.stringify(user))
+      console.log('user: ', user)
       blogService.setToken(user.token)
       setUser(user)
       setUsername('')

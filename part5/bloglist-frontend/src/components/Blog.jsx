@@ -15,6 +15,11 @@ const Blog = (props) => {
     await blogService.update(props.blog.id)
     setLikes(likes => likes + 1)
   }
+  const removeBlog = async () => {
+    if (window.confirm(`Delete ${props.blog.title}? Can't be reversed`)){
+      await blogService.remove(props.blog.id)
+    }
+  }
   return (
     <div style={blogStyle}>
       {props.blog.title} by {props.blog.author}
@@ -29,7 +34,10 @@ const Blog = (props) => {
             Likes: {likes}
             <button onClick={handleLikes}>like</button>
           </p>
-          <p>{props.blog.user.name}</p>
+          <p>{props.blog?.user?.name}</p>
+          {props.blog?.user?.id === props.user?.id && (
+            <button onClick={removeBlog}>delete</button>
+          )}
         </div>
       </Togglable>
     </div>
