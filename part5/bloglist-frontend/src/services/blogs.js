@@ -17,11 +17,8 @@ const create = async (newObject) => {
   const response = await axios.post(baseUrl, newObject, config)
   return response.data
 }
-const update = async id => {
-  const config = {
-    headers: { Authorization: token },
-  }
-  const response = await axios.put(`${baseUrl}/${id}`, {}, config)
+const update = async (id, blog) => {
+  const response = await axios.put(`${baseUrl}/${id}`, blog)
   return response.data
 }
 const remove = async id => {

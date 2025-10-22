@@ -13,7 +13,6 @@ const Blog = (props) => {
   }
   const handleLikes = async () => {
     await blogService.update(props.blog.id)
-    console.log(props)
     setLikes(likes => likes + 1)
   }
   const removeBlog = async () => {
@@ -32,7 +31,7 @@ const Blog = (props) => {
         <div>
           <a href={props.blog.url}>{props.blog.url}</a>
           <p>
-            Likes: {likes}
+            Likes: <span className="likes-value">{likes}</span>
             <button onClick={handleLikes}>like</button>
           </p>
           <p>{props.blog?.user?.name}</p>
