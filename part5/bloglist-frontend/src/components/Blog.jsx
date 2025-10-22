@@ -13,6 +13,7 @@ const Blog = (props) => {
   }
   const handleLikes = async () => {
     await blogService.update(props.blog.id)
+    console.log(props)
     setLikes(likes => likes + 1)
   }
   const removeBlog = async () => {
