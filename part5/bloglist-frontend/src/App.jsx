@@ -36,6 +36,7 @@ const App = () => {
     <div>
       <h2>Blogs</h2>
       <Notification notification={notification} setNotification={setNotification} />
+      <BlogForm setBlogs={setBlogs} blogs={blogs} setNotification={setNotification} toggleVisibility={() => setVisible(!visible)} />
       {user && (
         <div>
           <p>{user.name} logged in</p>
