@@ -19,7 +19,7 @@ const Notification = ({ notification, setNotification }) => {
     marginBottom: 10,
   }
   return (
-    <div style={notificationStyle}>
+    <div style={notificationStyle} className={notification.good? 'notification-good' : 'notification-bad'}>
       {notification.message}
     </div>
   )

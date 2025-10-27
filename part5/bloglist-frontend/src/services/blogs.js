@@ -10,7 +10,6 @@ const getAll = () => {
   return request.then(response => response.data)
 }
 const create = async (newObject) => {
-  console.log(token, 'token')
   const config = {
     headers: { Authorization: token },
   }

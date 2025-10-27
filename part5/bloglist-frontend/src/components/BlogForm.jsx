@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import TextInput from './TextInput'
 import blogService from '../services/blogs'
+
+import TextInput from './TextInput'
+import Togglable from './Togglable'
 
 const BlogForm = ({ setBlogs, blogs, setNotification, toggleVisibility }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
+  const [visible, setVisible] = useState(false)
 
   const handleBlog = async (event) => {
     event.preventDefault()
@@ -14,6 +17,7 @@ const BlogForm = ({ setBlogs, blogs, setNotification, toggleVisibility }) => {
       setBlogs(blogs.concat(newBlog))
       setNotification({message: 'Added blog', good: true})
       toggleVisibility()
+      setVisible(true)
       setTitle('')
       setAuthor('')
       setUrl('')
@@ -22,29 +26,35 @@ const BlogForm = ({ setBlogs, blogs, setNotification, toggleVisibility }) => {
     }
   }
   return (
-    <form onSubmit={handleBlog}>
-      <div>
-        <TextInput
-          name="title"
-          type="text"
-          value={title}
-          setValue={setTitle}
-        />
-        <TextInput
-          name="author"
-          type="text"
-          value={author}
-          setValue={setAuthor}
-        />
-        <TextInput
-          name="url"
-          type="text"
-          value={url}
-          setValue={setUrl}
-        />
-        <button type="submit">Create</button>
-      </div>
-    </form>
+    <Togglable
+      buttonLabel="Add Blog"
+      toggleVisibility={() => setVisible(!visible)}
+      visible={visible}
+    >
+      <form onSubmit={handleBlog}>
+        <div>
+          <TextInput
+            name="title"
+            type="text"
+            value={title}
+            setValue={setTitle}
+          />
+          <TextInput
+            name="author"
+            type="text"
+            value={author}
+            setValue={setAuthor}
+          />
+          <TextInput
+            name="url"
+            type="text"
+            value={url}
+            setValue={setUrl}
+          />
+          <button type="submit">Create</button>
+        </div>
+      </form>
+    </Togglable>
   )
 
 }

@@ -18,6 +18,7 @@ const Blog = (props) => {
   const removeBlog = async () => {
     if (window.confirm(`Delete ${props.blog.title}? Can't be reversed`)){
       await blogService.remove(props.blog.id)
+      window.location.reload()
     }
   }
   return (
