@@ -12,8 +12,8 @@ const Blog = (props) => {
     marginBottom: 5
   }
   const handleLikes = async () => {
-    await blogService.update(props.blog.id)
-    setLikes(likes => likes + 1)
+    const updated = await blogService.update(props.blog.id)
+    setLikes(updated.likes)
   }
   const removeBlog = async () => {
     if (window.confirm(`Delete ${props.blog.title}? Can't be reversed`)){

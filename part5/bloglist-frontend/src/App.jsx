@@ -27,6 +27,7 @@ const App = () => {
   }, [])
   const logOut = () => {
     window.localStorage.removeItem('user')
+    blogService.setToken(null)
     setUser(null)
     setNotification({ message: 'Logged out successfully', good: true })
   }

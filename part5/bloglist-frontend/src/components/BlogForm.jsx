@@ -12,18 +12,18 @@ const BlogForm = ({ setBlogs, blogs, setNotification, toggleVisibility }) => {
 
   const handleBlog = async (event) => {
     event.preventDefault()
-    try {
-      const newBlog = await blogService.create({ title, author, url })
-      setBlogs(blogs.concat(newBlog))
-      setNotification({message: 'Added blog', good: true})
-      toggleVisibility()
-      setVisible(true)
-      setTitle('')
-      setAuthor('')
-      setUrl('')
-    } catch {
-      setNotification({message: 'Input all details', good: false })
+    if (!title || !author || !url) {
+      setNotification({ message: 'All fields are required', good: false })
+      return
     }
+    const newBlog = await blogService.create({ title, author, url })
+    setBlogs(blogs.concat(newBlog))
+    setNotification({message: 'Added blog', good: true})
+    toggleVisibility()
+    setVisible(true)
+    setTitle('')
+    setAuthor('')
+    setUrl('')
   }
   return (
     <Togglable
