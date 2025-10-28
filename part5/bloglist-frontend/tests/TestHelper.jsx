@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
 import Blog from '../src/components/Blog'
-//import { vi } from 'vitest'
 
 const user = {
     name: 'Lewis',

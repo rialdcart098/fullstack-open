@@ -32,12 +32,40 @@ describe('Blog app', function() {
     })
   })
   describe('When logged in', async () => {
-    author
+    const author = 'Lionel Messi'
+    const title = 'The Best Footballer'
+    const url = 'https://example.com/'
     beforeEach(async ({ page }) => {
       await loginWith(username, password, page)
+      await addBlog(page, title, author, url)
     })
     test('a new blog can be created', async ({ page }) => {
-      await addBlog(page, )
+      await expect(page.getByText(`${title} by ${author}`)).toBeVisible()
+    })
+    test('a user can like a blog', async ({ page }) => {
+      await page.getByRole('button', { name: 'view' }).click()
+      await page.getByRole('button', { name: 'like' }).click()
+      await expect(page.getByText('1')).toBeVisible()
+    })
+    test('only the user who created a blog can delete it', async ({ page }) => {
+      await page.getByRole('button', { name: 'view' }).click()
+      await expect(page.getByRole('button', { name: 'remove' })).toBeVisible()
+      await page.getByRole('button', { name: 'remove' }).click()
+      await page.on('dialog', dialog => dialog.accept())
+      await expect(page.getByText(`${title} by ${author}`)).not.toBeVisible()
+    })
+    test("other's cant delete a blog", async ({ page, request }) => {
+      await page.getByRole('button', { name: 'Log out' }).click()
+      const nonUser = 'jahshawnCarnegie'
+      const nonName = 'jahshawn'
+      const nonPass = 'janiaisthegoat'
+      await request.post('/api/users', {
+        data: { username: nonUser, name: nonName, password: nonPass }
+      })
+      
+      await loginWith(nonUser, nonPass, page)
+      await page.getByRole('button', { name: 'view' }).click()
+      await expect(page.getByRole('button', { name: 'remove' })).not.toBeVisible()
     })
   })
 })
