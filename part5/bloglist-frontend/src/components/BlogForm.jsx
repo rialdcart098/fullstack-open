@@ -4,7 +4,7 @@ import blogService from '../services/blogs'
 import TextInput from './TextInput'
 import Togglable from './Togglable'
 
-const BlogForm = ({ setBlogs, blogs, setNotification = () => {} }) => {
+const BlogForm = ({ setBlogs, blogs, setNotification }) => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [url, setUrl] = useState('')
@@ -19,7 +19,6 @@ const BlogForm = ({ setBlogs, blogs, setNotification = () => {} }) => {
     const newBlog = await blogService.create({ title, author, url })
     setBlogs(blogs.concat(newBlog))
     setNotification({ message: 'Added blog', good: true })
-    // hide the form after creating a blog
     setVisible(false)
     setTitle('')
     setAuthor('')

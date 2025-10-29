@@ -61,20 +61,20 @@ describe("Blog functionality works", () => {
     blogsService.create = vi.fn().mockResolvedValue(returnedBlog)
     render(<BlogForm blogs={blogs} setBlogs={setBlogs} />)
 
-  const user = userEvent.setup()
-  const addButton = screen.getByRole('button', { name: 'Add Blog' })
-  await user.click(addButton)
+    const user = userEvent.setup()
+    const addButton = screen.getByRole('button', { name: 'Add Blog' })
+    await user.click(addButton)
 
-  const titleInput = screen.getByLabelText('title')
-  const authorInput = screen.getByLabelText('author')
-  const urlInput = screen.getByLabelText('url')
+    const titleInput = screen.getByLabelText('title')
+    const authorInput = screen.getByLabelText('author')
+    const urlInput = screen.getByLabelText('url')
 
-  await user.type(titleInput, 'giddy giddy goo')
-  await user.type(authorInput, 'michael jordan')
-  await user.type(urlInput, 'https://gitub.com/')
+    await user.type(titleInput, 'giddy giddy goo')
+    await user.type(authorInput, 'michael jordan')
+    await user.type(urlInput, 'https://gitub.com/')
 
-  const createButton = screen.getByRole('button', { name: 'Create' })
-    await user.click(createButton)
+    const createButton = screen.getByRole('button', { name: 'Create' })
+      await user.click(createButton)
 
     expect(blogsService.create).toHaveBeenCalledWith({
       title: 'giddy giddy goo',

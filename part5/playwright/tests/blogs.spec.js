@@ -1,4 +1,4 @@
-const { test, expect, beforeEach, describe } = require('@playwright/test')
+const { test, expect, beforeEach, describe, afterEach } = require('@playwright/test')
 const { loginWith, addBlog } = require('./helper')
 
 describe('Blog app', function() {
@@ -49,9 +49,9 @@ describe('Blog app', function() {
     })
     test('only the user who created a blog can delete it', async ({ page }) => {
       await page.getByRole('button', { name: 'view' }).click()
-      await expect(page.getByRole('button', { name: 'remove' })).toBeVisible()
-      await page.getByRole('button', { name: 'remove' }).click()
-      await page.on('dialog', dialog => dialog.accept())
+      await expect(page.getByRole('button', { name: 'delete' })).toBeVisible()
+      page.on('dialog', dialog => dialog.accept())
+      await page.getByRole('button', { name: 'delete' }).click()
       await expect(page.getByText(`${title} by ${author}`)).not.toBeVisible()
     })
     test("other's cant delete a blog", async ({ page, request }) => {
@@ -65,7 +65,10 @@ describe('Blog app', function() {
       
       await loginWith(nonUser, nonPass, page)
       await page.getByRole('button', { name: 'view' }).click()
-      await expect(page.getByRole('button', { name: 'remove' })).not.toBeVisible()
+      await expect(page.getByRole('button', { name: 'delete' })).not.toBeVisible()
+    })
+    afterEach(async ({ page }) => {
+      await page.getByRole('button', { name: 'Log out' }).click()
     })
   })
 })
