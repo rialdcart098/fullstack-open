@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { setFilter } from '../reducers/filterReducer'
 
@@ -10,7 +9,6 @@ const Filter = () => {
   const style = {
     marginBottom: 10
   }
-
   return (
     <div style={style}>
       filter <input onChange={handleChange} />
