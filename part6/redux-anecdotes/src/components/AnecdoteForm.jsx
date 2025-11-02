@@ -1,7 +1,6 @@
 import { useDispatch } from 'react-redux'
-import { createAnecdote } from '../reducers/anecdoteReducer'
-import { notificationAlert } from '../reducers/notificationReducer'
-import anecdoteService from '../services/anecdotes'
+import { appendAnecdote } from '../reducers/anecdoteReducer'
+import { setNotification } from '../reducers/notificationReducer'
 
 const AnecdoteForm = () => {
   const dispatch = useDispatch()
@@ -10,9 +9,8 @@ const AnecdoteForm = () => {
     event.preventDefault()
     const content = event.target[0].value
     event.target[0].value = ''
-    const newNote = await anecdoteService.createNew(content)
-    dispatch(createAnecdote(newNote))
-    dispatch(notificationAlert(`uploaded post: '${content}'`))
+    dispatch(appendAnecdote(content))
+    dispatch(setNotification(`uploaded post: '${content}'`, 5))
   }
   return (
     <>
