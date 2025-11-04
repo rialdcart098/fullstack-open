@@ -10,11 +10,14 @@ const App = () => {
 
   const voteMutation = useMutation({
     mutationFn: vote,
-    
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['anecdotes'] })
+    }
   })
 
   const handleVote = (anecdote) => {
-    console.log('vote')
+    const newAnecdote = { ...anecdote, votes: anecdote.votes + 1 }
+    voteMutation.mutate(newAnecdote)
   }
   const result = useQuery({
     queryKey: ['anecdotes'],
