@@ -9,6 +9,7 @@ const AnecdoteForm = () => {
     mutationFn: addAnecdote,
     onSuccess: anecdote => {
       const anecdotes = queryClient.getQueryData('anecdotes')
+      console.log(anecdotes)
       queryClient.setQueryData('anecdotes', anecdotes.concat(anecdote))
     }
   })
@@ -32,3 +33,4 @@ const AnecdoteForm = () => {
 }
 
 export default AnecdoteForm
+

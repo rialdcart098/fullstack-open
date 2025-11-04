@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://localhost:3001/anecdotes'
 
 export const getAnecdotes = async () => {
     const response = await fetch(baseUrl)
@@ -7,7 +7,7 @@ export const getAnecdotes = async () => {
 }
 
 export const addAnecdote = async anecdote => {
-    if (anecdote.length < 5) throw new Error('Anecdote must be at least 5 characters')
+    if (anecdote.length < 5) return
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
