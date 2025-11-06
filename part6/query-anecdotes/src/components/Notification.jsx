@@ -9,11 +9,11 @@ const Notification = () => {
     marginBottom: 5
   }
   
-  const { notification } = useContext(NotificationContext)
+  const { notification, setNotification } = useContext(NotificationContext)
   if (!notification) return null
   setTimeout(() => {
-    
-  }, 5000)
+    setNotification({ type: 'CLEAR' })
+  }, 5000) // 5 seconds
 
   return (
     <div style={style}>
