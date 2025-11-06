@@ -1,4 +1,5 @@
 import NotificationContext from '../NotificationContext'
+import { clearNotification } from '../NotificationContext'
 import { useContext } from 'react'
 
 const Notification = () => {
@@ -9,10 +10,10 @@ const Notification = () => {
     marginBottom: 5
   }
   
-  const { notification, setNotification } = useContext(NotificationContext)
+  const { notification, notificationDispatch } = useContext(NotificationContext)
   if (!notification) return null
   setTimeout(() => {
-    setNotification({ type: 'CLEAR' })
+    notificationDispatch(cleatNotification())
   }, 5000) // 5 seconds
 
   return (
