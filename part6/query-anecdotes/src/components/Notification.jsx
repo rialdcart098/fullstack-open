@@ -13,7 +13,7 @@ const Notification = () => {
   const { notification, notificationDispatch } = useContext(NotificationContext)
   if (!notification) return null
   setTimeout(() => {
-    notificationDispatch(cleatNotification())
+    notificationDispatch(clearNotification())
   }, 5000) // 5 seconds
 
   return (

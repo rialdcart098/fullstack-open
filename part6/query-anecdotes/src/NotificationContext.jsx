@@ -16,7 +16,7 @@ export const NotificationProvider = (props) => {
     const [notification, notificationDispatch] = useReducer(notificationReducer, '')
 
     return (
-        <NotificationContext.Provider value={{ notification, setNotification }}>
+        <NotificationContext.Provider value={{ notification, notificationDispatch }}>
             {props.children}
         </NotificationContext.Provider>
     )
