@@ -1,26 +1,26 @@
-import Togglable from './Togglable'
-import blogService from '../services/blogs'
-import { useState } from 'react'
+import Togglable from "./Togglable.jsx";
+import blogService from "../services/blogs.js";
+import { useState } from "react";
 const Blog = (props) => {
-  const [visible, setVisible] = useState(false)
-  const [likes, setLikes] = useState(props.blog.likes)
+  const [visible, setVisible] = useState(false);
+  const [likes, setLikes] = useState(props.blog.likes);
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
-    border: 'solid',
+    border: "solid",
     borderWidth: 1,
-    marginBottom: 5
-  }
+    marginBottom: 5,
+  };
   const handleLikes = async () => {
-    const updated = await blogService.update(props.blog.id)
-    setLikes(updated.likes)
-  }
+    const updated = await blogService.update(props.blog.id);
+    setLikes(updated.likes);
+  };
   const removeBlog = async () => {
-    if (window.confirm(`Delete ${props.blog.title}? Can't be reversed`)){
-      await blogService.remove(props.blog.id)
-      window.location.reload()
+    if (window.confirm(`Delete ${props.blog.title}? Can't be reversed`)) {
+      await blogService.remove(props.blog.id);
+      window.location.reload();
     }
-  }
+  };
   return (
     <div style={blogStyle}>
       {props.blog.title} by {props.blog.author}
@@ -42,7 +42,7 @@ const Blog = (props) => {
         </div>
       </Togglable>
     </div>
-  )
-}
+  );
+};
 
-export default Blog
+export default Blog;

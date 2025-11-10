@@ -11,6 +11,6 @@ const TextInput = ({ type, value, name, setValue }) => {
         />
       </label>
     </div>
-  )
-}
-export default TextInput
+  );
+};
+export default TextInput;
