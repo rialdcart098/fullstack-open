@@ -1,37 +1,33 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 import Blog from "./components/Blog.jsx";
 import Login from "./components/Login.jsx";
 import BlogForm from "./components/BlogForm.jsx";
 import Notification from "./components/Notification.jsx";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "./reducers/notificationReducer.js";
-import {}
+import { initializeBlogs } from "./reducers/blogReducer.js";
+import { logOut, setUser } from "./reducers/userReducer.js";
 
 import blogService from "./services/blogs.js";
 
 const App = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [user, setUser] = useState(null);
+  const blogs = useSelector(state => state.blogs);
+  const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
-  }, []);
-  useEffect(() => {
+    dispatch(initializeBlogs());
     const loggedUserJSON = window.localStorage.getItem("user");
     if (loggedUserJSON) {
       const user = JSON.parse(loggedUserJSON);
+      dispatch(setUser(user));
       blogService.setToken(user.token);
-      setUser(user);
-      console.log(user);
     }
-  }, []);
-  const logOut = () => {
-    window.localStorage.removeItem("user");
-    blogService.setToken(null);
-    setUser(null);
+  }, [dispatch]);
+  const handleLogOut = () => {
+    dispatch(logOut())
     dispatch(setNotification({ message: "Logged out successfully", good: true }, 5));
   };
   return (
@@ -42,19 +38,16 @@ const App = () => {
         {user && (
           <div>
             <p>{user.name} logged in</p>
-            <button onClick={logOut}>Log Out</button>
-            <BlogForm
-              setBlogs={setBlogs}
-              blogs={blogs}
-            />
+            <button onClick={handleLogOut}>Log Out</button>
+            <BlogForm />
           </div>
         )}
-        {blogs
+        {[...blogs]
           .sort((a, b) => b.likes - a.likes)
           .map((blog) => (
             <Blog key={blog.id} blog={blog} user={user} />
           ))}
-        {!user && <Login setUser={setUser} />}
+        {!user && <Login />}
       </div>
     </Router>
   );

@@ -1,12 +1,12 @@
 import loginService from "../services/login.js";
-import blogService from "../services/blogs.js";
 import TextInput from "./TextInput.jsx";
 import Togglable from "./Togglable.jsx";
 import { useState } from "react";
 import { setNotification } from "../reducers/notificationReducer.js";
 import { useDispatch } from "react-redux";
+import {loginUser} from "../reducers/userReducer.js";
 
-const Login = ({ setUser }) => {
+const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
@@ -16,10 +16,7 @@ const Login = ({ setUser }) => {
     event.preventDefault();
     try {
       const user = await loginService.login({ username, password });
-      window.localStorage.setItem("user", JSON.stringify(user));
-      console.log("user: ", user);
-      blogService.setToken(user.token);
-      setUser(user);
+      dispatch(loginUser(user));
       setVisible(false);
       setUsername("");
       setPassword("");

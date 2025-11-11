@@ -1,12 +1,12 @@
 import { useState } from "react";
-import blogService from "../services/blogs.js";
 
 import TextInput from "./TextInput.jsx";
 import Togglable from "./Togglable.jsx";
 import {setNotification} from "../reducers/notificationReducer.js";
 import { useDispatch } from "react-redux";
+import {createBlog} from "../reducers/blogReducer.js";
 
-const BlogForm = ({ setBlogs, blogs }) => {
+const BlogForm = () => {
   const dispatch = useDispatch();
 
   const [title, setTitle] = useState("");
@@ -20,8 +20,7 @@ const BlogForm = ({ setBlogs, blogs }) => {
       dispatch(setNotification({ message: "Please input all details", good: false }, 2.5));
       return;
     }
-    const newBlog = await blogService.create({ title, author, url });
-    setBlogs(blogs.concat(newBlog));
+    dispatch(createBlog({ title, author, url }));
     dispatch(setNotification({ message: "Added blog", good: true }, 5));
     setVisible(false);
     setTitle("");

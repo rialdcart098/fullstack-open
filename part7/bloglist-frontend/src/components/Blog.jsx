@@ -1,8 +1,10 @@
 import Togglable from "./Togglable.jsx";
-import blogService from "../services/blogs.js";
 import { useState } from "react";
+import {useDispatch} from "react-redux";
+import {deleteBlog, like} from "../reducers/blogReducer.js";
 const Blog = (props) => {
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
   const [likes, setLikes] = useState(props.blog.likes);
   const blogStyle = {
     paddingTop: 10,
@@ -11,14 +13,13 @@ const Blog = (props) => {
     borderWidth: 1,
     marginBottom: 5,
   };
-  const handleLikes = async () => {
-    const updated = await blogService.update(props.blog.id);
-    setLikes(updated.likes);
-  };
+  const handleLike = async () => {
+    dispatch(like(props.blog.id));
+    setLikes(likes + 1);
+  }
   const removeBlog = async () => {
     if (window.confirm(`Delete ${props.blog.title}? Can't be reversed`)) {
-      await blogService.remove(props.blog.id);
-      window.location.reload();
+      dispatch(deleteBlog(props.blog.id));
     }
   };
   return (
@@ -33,7 +34,7 @@ const Blog = (props) => {
           <a href={props.blog.url}>{props.blog.url}</a>
           <p>
             Likes: <span className="likes-value">{likes}</span>
-            <button onClick={handleLikes}>like</button>
+            <button onClick={handleLike}>like</button>
           </p>
           <p>{props.blog?.user?.name}</p>
           {props.blog?.user?.id === props.user?.id && (
