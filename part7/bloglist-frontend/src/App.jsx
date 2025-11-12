@@ -6,6 +6,7 @@ import Login from "./components/Login.jsx";
 import Users from "./components/Users.jsx";
 import User from "./components/User.jsx";
 import BlogForm from "./components/BlogForm.jsx";
+import BlogPage from "./components/BlogPage.jsx"
 import Notification from "./components/Notification.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "./reducers/notificationReducer.js";

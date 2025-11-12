@@ -3,6 +3,7 @@ import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteBlog, like} from "../reducers/blogReducer.js";
 const Blog = (props) => {
+  const user = useSelector(state => state.auth)
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
   const [likes, setLikes] = useState(props.blog.likes);
@@ -50,7 +51,7 @@ const Blogs = () => {
   const user = useSelector((state) => state.auth);
   return (
     <>
-      {[...blogs]
+      {[...blogs].sort((leastLikes, mostLikes) => mostLikes - leastLikes)
         .map(blog => (
           <Blog key={blog.id} blog={blog} user={user} />
         ))}
