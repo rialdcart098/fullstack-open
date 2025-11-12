@@ -1,13 +1,10 @@
-const TextInput = ({ type, value, name, setValue }) => {
+const TextInput = (props) => {
   return (
     <div>
       <label>
-        {name}
+        {props.name}
         <input
-          type={type}
-          value={value}
-          name={name}
-          onChange={({ target }) => setValue(target.value)}
+          {...props}
         />
       </label>
     </div>

@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import blogService from '../services/blogs.js';
+import loginService from '../services/login.js';
 
-const userSlice = createSlice({
+const authSlice = createSlice({
   name: 'user',
   initialState: null,
   reducers: {
@@ -13,13 +14,16 @@ const userSlice = createSlice({
     }
   }
 })
-const { setUser, clearUser } = userSlice.actions;
+const { setUser, clearUser } = authSlice.actions;
 
-export const loginUser = user => {
+export const loginUser = (username, password) => {
   return async dispatch => {
+    console.log(username, password)
+    const user = await loginService.login({ username, password });
     window.localStorage.setItem('user', JSON.stringify(user));
     blogService.setToken(user.token);
     dispatch(setUser(user));
+    return user;
   }
 }
 export const logOut = () => {
@@ -32,4 +36,4 @@ export const logOut = () => {
 
 export { setUser };
 
-export default userSlice.reducer;
+export default authSlice.reducer;

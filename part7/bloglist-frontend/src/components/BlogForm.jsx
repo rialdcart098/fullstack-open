@@ -5,49 +5,40 @@ import Togglable from "./Togglable.jsx";
 import {setNotification} from "../reducers/notificationReducer.js";
 import { useDispatch } from "react-redux";
 import {createBlog} from "../reducers/blogReducer.js";
+import { useField } from "../hooks.js";
 
 const BlogForm = () => {
   const dispatch = useDispatch();
+  const { clear: clearTitle, ...title } = useField("text", "title");
+  const { clear: clearAuthor, ...author } = useField("text", "author");
+  const { clear: clearUrl, ...url } = useField("text", "url");
 
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
   const [visible, setVisible] = useState(false);
 
   const handleBlog = async (event) => {
     event.preventDefault();
-    if (!title || !author || !url) {
+    if (!title.value || !author.value || !url.value) {
       dispatch(setNotification({ message: "Please input all details", good: false }, 2.5));
       return;
     }
-    dispatch(createBlog({ title, author, url }));
+    dispatch(createBlog({ title: title.value, author: author.value, url: url.value }));
     dispatch(setNotification({ message: "Added blog", good: true }, 5));
     setVisible(false);
-    setTitle("");
-    setAuthor("");
-    setUrl("");
+    clearTitle();
+    clearAuthor();
+    clearUrl();
   };
   return (
     <Togglable
-      buttonLabel="Add Blog"
+      buttonLabel="Add Blogs"
       toggleVisibility={() => setVisible(!visible)}
       visible={visible}
     >
       <form onSubmit={handleBlog}>
         <div>
-          <TextInput
-            name="title"
-            type="text"
-            value={title}
-            setValue={setTitle}
-          />
-          <TextInput
-            name="author"
-            type="text"
-            value={author}
-            setValue={setAuthor}
-          />
-          <TextInput name="url" type="text" value={url} setValue={setUrl} />
+          <TextInput {...title} />
+          <TextInput {...author} />
+          <TextInput {...url} />
           <button type="submit">Create</button>
         </div>
       </form>

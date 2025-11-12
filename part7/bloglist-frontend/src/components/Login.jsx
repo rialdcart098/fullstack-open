@@ -1,25 +1,24 @@
-import loginService from "../services/login.js";
 import TextInput from "./TextInput.jsx";
 import Togglable from "./Togglable.jsx";
 import { useState } from "react";
 import { setNotification } from "../reducers/notificationReducer.js";
 import { useDispatch } from "react-redux";
-import {loginUser} from "../reducers/userReducer.js";
+import {loginUser} from "../reducers/authReducer.js";
+import { useField } from "../hooks.js";
 
 const Login = () => {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const { clear: clearUsername, ...username } = useField("text", "username");
+  const { clear: clearPassword, ...password } = useField("password", "password");
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const user = await loginService.login({ username, password });
-      dispatch(loginUser(user));
+      const user = await dispatch(loginUser(username.value, password.value));
       setVisible(false);
-      setUsername("");
-      setPassword("");
+      clearUsername();
+      clearPassword();
       dispatch(setNotification({ message: `Welcome back ${user.name}`, good: true }, 5));
     } catch {
       dispatch(setNotification({
@@ -37,16 +36,10 @@ const Login = () => {
       <h2>Log In</h2>
       <form onSubmit={handleLogin}>
         <TextInput
-          type="text"
-          value={username}
-          name="Username"
-          setValue={setUsername}
+          {...username}
         />
         <TextInput
-          type="password"
-          value={password}
-          name="Password"
-          setValue={setPassword}
+          {...password}
         />
         <button type="submit">Log In</button>
       </form>

@@ -26,6 +26,9 @@ if (process.env.NODE_ENV === 'test'){
   const testsRouter = require('./controllers/tests')
   app.use('/api/testing', testsRouter)
 }
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'bloglist-frontend', 'dist', 'index.html'))
+})
 
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)

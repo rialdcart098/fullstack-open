@@ -1,10 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import Blog from "../src/components/Blog.jsx";
+import Blogs from "../src/components/Blogs.jsx";
 import BlogForm from "../src/components/BlogForm.jsx";
 import blogsService from "../src/services/blogs.js";
 
-describe("Blog functionality works", () => {
+describe("Blogs functionality works", () => {
   const userData = {
     username: "rialdcart098",
     name: "cart",
@@ -17,7 +17,7 @@ describe("Blog functionality works", () => {
     likes: 1000,
   };
   test("BlogForm renders only the blog title and author by default", () => {
-    const { container } = render(<Blog blog={testBlog} user={userData} />);
+    const { container } = render(<Blogs blog={testBlog} user={userData} />);
     const element = screen.getByText("The Best Footballer by Lionel Messi");
     expect(element).toBeDefined();
     const extraDiv = container.querySelector(".togglableHidden");
@@ -25,7 +25,7 @@ describe("Blog functionality works", () => {
     expect(extraDiv).toBeDefined();
   });
   test("BlogForm shows url and likes when the view button is clicked", async () => {
-    const { container } = render(<Blog blog={testBlog} user={userData} />);
+    const { container } = render(<Blogs blog={testBlog} user={userData} />);
     const user = userEvent.setup();
     const button = screen.getByText("view");
     await user.click(button);
@@ -34,7 +34,7 @@ describe("Blog functionality works", () => {
     expect(element).toBeDefined();
   });
   test("When the like button is clicked twice, the event handler is called twice", async () => {
-    render(<Blog blog={testBlog} user={userData} />);
+    render(<Blogs blog={testBlog} user={userData} />);
     const user = userEvent.setup();
     let amtLikes = testBlog.likes;
     blogsService.update = vi.fn().mockImplementation(async () => {
@@ -50,7 +50,7 @@ describe("Blog functionality works", () => {
     expect(blogsService.update).toHaveBeenCalledTimes(2);
     expect(screen.getByText(String(amtLikes))).toBeDefined();
   });
-  test("Blog creation works", async () => {
+  test("Blogs creation works", async () => {
     const blogs = [];
     const setBlogs = vi.fn();
     const returnedBlog = {

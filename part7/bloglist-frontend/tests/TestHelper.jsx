@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import Blog from "../src/components/Blog.jsx";
+import Blogs from "../src/components/Blogs.jsx";
 
 const user = {
   name: "Lewis",
@@ -16,7 +16,7 @@ const testBlog = {
   user: { id: user.id, name: user.name },
 };
 
-const setup = () => render(<Blog key="1" user={user} blog={testBlog} />);
+const setup = () => render(<Blogs key="1" user={user} blog={testBlog} />);
 
 export default { setup, user, testBlog };
 export { setup, user, testBlog };

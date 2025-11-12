@@ -1,7 +1,7 @@
 const { test, expect, beforeEach, describe, afterEach } = require('@playwright/test')
 const { loginWith, addBlog } = require('./helper')
 
-describe('Blog app', function() {
+describe('Blogs app', function() {
   const username = 'rialdcart098'
   const name = 'cart'
   const password = 'goldmansachs'

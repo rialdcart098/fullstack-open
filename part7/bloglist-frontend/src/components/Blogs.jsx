@@ -1,6 +1,6 @@
 import Togglable from "./Togglable.jsx";
-import { useState } from "react";
-import {useDispatch} from "react-redux";
+import {useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {deleteBlog, like} from "../reducers/blogReducer.js";
 const Blog = (props) => {
   const [visible, setVisible] = useState(false);
@@ -45,5 +45,16 @@ const Blog = (props) => {
     </div>
   );
 };
-
-export default Blog;
+const Blogs = () => {
+  const blogs = useSelector((state) => state.blogs);
+  const user = useSelector((state) => state.auth);
+  return (
+    <>
+      {[...blogs]
+        .map(blog => (
+          <Blog key={blog.id} blog={blog} user={user} />
+        ))}
+    </>
+  )
+}
+export default Blogs;

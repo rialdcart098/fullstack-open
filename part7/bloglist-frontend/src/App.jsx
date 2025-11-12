@@ -1,23 +1,25 @@
 import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import Blog from "./components/Blog.jsx";
+import Blogs from "./components/Blogs.jsx";
 import Login from "./components/Login.jsx";
+import Users from "./components/Users.jsx";
+import User from "./components/User.jsx";
 import BlogForm from "./components/BlogForm.jsx";
 import Notification from "./components/Notification.jsx";
 import { useDispatch, useSelector } from "react-redux";
 import { setNotification } from "./reducers/notificationReducer.js";
-import { initializeBlogs } from "./reducers/blogReducer.js";
-import { logOut, setUser } from "./reducers/userReducer.js";
-
+import { logOut, setUser } from "./reducers/authReducer.js";
 import blogService from "./services/blogs.js";
+import {initializeUsers} from "./reducers/usersReducer.js";
+import {initializeBlogs} from "./reducers/blogReducer.js";
 
 const App = () => {
-  const blogs = useSelector(state => state.blogs);
-  const user = useSelector(state => state.user);
+  const user = useSelector(state => state.auth);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    dispatch(initializeUsers());
     dispatch(initializeBlogs());
     const loggedUserJSON = window.localStorage.getItem("user");
     if (loggedUserJSON) {
@@ -33,7 +35,7 @@ const App = () => {
   return (
     <Router>
       <div>
-        <h2>Blogs</h2>
+        <h1>Blogs</h1>
         <Notification />
         {user && (
           <div>
@@ -42,13 +44,14 @@ const App = () => {
             <BlogForm />
           </div>
         )}
-        {[...blogs]
-          .sort((a, b) => b.likes - a.likes)
-          .map((blog) => (
-            <Blog key={blog.id} blog={blog} user={user} />
-          ))}
         {!user && <Login />}
       </div>
+      <Routes>
+        <Route path="/users" element={<Users />} />
+        <Route path="/" element={<Blogs />} />
+        <Route path="/users/:id" element={<User />} />
+        <Route path="/blogs/:id" element={<BlogPage />} />
+      </Routes>
     </Router>
   );
 };
