@@ -21,14 +21,23 @@ const BlogPage = () => {
       navigate('/')
     }
   }
+  const handleLike = () => {
+    if (user){
+      dispatch(like(blog.id))
+    } else {
+      dispatch(setNotification({ message: 'You must be logged in to like blogs', good: false }, 5))
+    }
+  }
   return (
     <div>
-      <h2>{blog.title} by {blog.author}</h2>
+      <h2 className="font-bold text-3xl">
+        {blog.title} by {blog.author}
+      </h2>
       <br />
       <a href={blog.url}>{blog.url}</a>
       <p>
         Likes: <span className="likes-value">{blog.likes}</span>
-        <button onClick={() => dispatch(like(blog.id))}>like</button>
+        <button onClick={handleLike}>like</button>
       </p>
       <p>added by {blog.user.name}</p>
       {blog.user.id === user?.id && (

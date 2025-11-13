@@ -16,7 +16,7 @@ const Users = () => {
   const users = useSelector((state) => state.users);
   return (
     <div>
-      <h2>Users</h2>
+      <h2 className='font-momo-trust-display text-3xl'>Users</h2>
       <table>
         <thead>
           <tr>

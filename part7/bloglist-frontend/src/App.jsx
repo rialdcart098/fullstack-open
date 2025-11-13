@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Blogs from "./components/Blogs.jsx";
 import Login from "./components/Login.jsx";
 import Users from "./components/Users.jsx";
+import Navbar from "./components/Navbar.jsx";
 import User from "./components/User.jsx";
 import BlogForm from "./components/BlogForm.jsx";
 import BlogPage from "./components/BlogPage.jsx"
@@ -29,30 +30,22 @@ const App = () => {
       blogService.setToken(user.token);
     }
   }, [dispatch]);
-  const handleLogOut = () => {
-    dispatch(logOut())
-    dispatch(setNotification({ message: "Logged out successfully", good: true }, 5));
-  };
   return (
     <Router>
-      <div>
-        <h1>Blogs</h1>
-        <Notification />
-        {user && (
-          <div>
-            <p>{user.name} logged in</p>
-            <button onClick={handleLogOut}>Log Out</button>
-            <BlogForm />
-          </div>
-        )}
-        {!user && <Login />}
+      <div className="grid grid-cols-1 grid-rows-[0.25fr_2fr_0.5fr] gap-4 w-screen h-screen bg-blue-950 font-merriweather">
+        <Navbar className='h-full' />
+        <div>
+          <h1 className="text-6xl text-stone-950 font-black font-momo-trust-display">BLOGS</h1>
+          <Routes>
+            <Route path="/users" element={<Users/>}/>
+            <Route path="/" element={<Blogs/>}/>
+            <Route path="/users/:id" element={<User/>}/>
+            <Route path="/blogs/:id" element={<BlogPage/>}/>
+          </Routes>
+          <Notification/>
+          {user && <BlogForm/>}
+        </div>
       </div>
-      <Routes>
-        <Route path="/users" element={<Users />} />
-        <Route path="/" element={<Blogs />} />
-        <Route path="/users/:id" element={<User />} />
-        <Route path="/blogs/:id" element={<BlogPage />} />
-      </Routes>
     </Router>
   );
 };
