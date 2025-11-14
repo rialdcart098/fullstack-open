@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import blogService from '../services/blogs.js';
+import { useSelector } from 'react-redux';
 
 const blogSlice = createSlice({
   name: 'blogs',
@@ -14,18 +15,13 @@ const blogSlice = createSlice({
     removeBlog(state, action) {
       return state.filter(blog => blog.id !== action.payload);
     },
-    addLike(state, action) {
-      const id = action.payload;
-      const blogToVote = state.find(blog => blog.id === id);
-      const votedBlog = {
-        ...blogToVote,
-        votes: blogToVote.votes + 1
-      };
-      return state.map(blog => blog.id !== id ? blog : votedBlog);
+    updateBlog(state, action) {
+      const updatedBlog = action.payload
+      return state.filter(blog => blog.id === updatedBlog.id ? updatedBlog : blog)
     }
   }
 });
-const { setBlogs, appendBlog, removeBlog, addLike } = blogSlice.actions;
+const { setBlogs, appendBlog, removeBlog, updateBlog } = blogSlice.actions;
 
 export const initializeBlogs = () => {
   return async dispatch => {
@@ -46,10 +42,26 @@ export const deleteBlog = id => {
   };
 };
 export const like = id => {
-  return async dispatch => {
-    await blogService.update(id);
-    dispatch(addLike(id));
+  return async (dispatch, getState) => {
+    const blog = getState().blogs.find(blog => blog.id === id)
+    const updatedBlog = {
+      ...blog,
+      likes: blog.likes + 1
+    }
+    await blogService.update(updatedBlog);
+    dispatch(updateBlog(updatedBlog));
   };
 };
-
+export const addComment = (id, comment) => {
+  return async (dispatch, getState) => {
+    const blog = getState().blogs.find(blog => blog.id === id)
+    const updatedBlog = {
+      ...blog,
+      comments: [...blog.comments, comment],
+    }
+    console.log(updatedBlog)
+    await blogService.update(updatedBlog);
+    dispatch(updateBlog(updatedBlog))
+  }
+}
 export default blogSlice.reducer;

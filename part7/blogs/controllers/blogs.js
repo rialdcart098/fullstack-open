@@ -48,7 +48,7 @@ blogsRouter.put('/:id', async (request, response) => {
   if (!user) return response.status(400).json({ error: 'User not found' })
   const blog = await Blog.findById(request.params.id)
   if (!blog) return response.status(404).end()
-  blog.likes++
+  blog.set(request.body)
   const updatedBlog = await blog.save()
   response.json(updatedBlog)
 })

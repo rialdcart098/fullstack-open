@@ -2,6 +2,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {useParams, useNavigate} from 'react-router-dom'
 import {like, deleteBlog} from "../reducers/blogReducer.js";
 import { setNotification } from '../reducers/notificationReducer.js';
+import CommentForm from './CommentForm.jsx';
 
 
 const BlogPage = () => {
@@ -21,13 +22,6 @@ const BlogPage = () => {
       navigate('/')
     }
   }
-  const handleLike = () => {
-    if (user){
-      dispatch(like(blog.id))
-    } else {
-      dispatch(setNotification({ message: 'You must be logged in to like blogs', good: false }, 5))
-    }
-  }
   return (
     <div>
       <h2 className="font-bold text-3xl">
@@ -37,8 +31,19 @@ const BlogPage = () => {
       <a href={blog.url}>{blog.url}</a>
       <p>
         Likes: <span className="likes-value">{blog.likes}</span>
-        <button onClick={handleLike}>like</button>
+        {user && (
+            <button onClick={() => dispatch(like(blog.id))}>like</button>
+        )}
       </p>
+      <div>
+        <h3>Comments</h3>
+        {user && <CommentForm />}
+        <ul>
+          {[...blog.comments].map(c => (
+            <li key={c}>{c}</li>
+          ))}
+        </ul>
+      </div>
       <p>added by {blog.user.name}</p>
       {blog.user.id === user?.id && (
         <button onClick={handleRemove}>Delete</button>
