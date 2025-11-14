@@ -29,15 +29,15 @@ const BlogPage = () => {
     dispatch(setNotification({ message: `You liked ${blog.title}`, good: true }, 5))
   }
   return (
-    <div>
-      <h2 className="font-bold text-3xl">
+    <div className="grid grid-cols-2 grid-rows-5">
+      <h2 className=" font-bold text-2xl col-span-2 text-blue-300 p-3 bg-blue-950 text-center">
         {blog.title} by {blog.author}
       </h2>
       <br />
-      <a href={blog.url}>
+      <a href={blog.url} className="row-start-2 row-end-3 m-2 text-blue font-bold text-xl p-2 underline text-indigo-600 hover:text-indigo-300 transition-all ease-in-out">
         {blog.url}
       </a>
-      <p>
+      <p className="text-blue-400 font-medium font-momo-trust-display row-start-3 row-end-4 col-span-1">
         Likes:
         <span className="likes-value mx-2">
           {likes}
@@ -45,13 +45,13 @@ const BlogPage = () => {
         {user && (
             <button
               onClick={handleLike}
-              className='hover:bg-emerald-200 cursor-pointer p-2 bg-blue-200 text-white rounded-2xl font-momo-trust-display hover:drop-shadow-[0_0_6px_rgba(164,244,207,1)] transition-all ease-in-out'
+              className='m-3 hover:bg-emerald-200 cursor-pointer p-2 bg-blue-200 text-white rounded-2xl font-momo-trust-display hover:drop-shadow-[0_0_6px_rgba(164,244,207,1)] transition-all ease-in-out'
             >
               <img src='../../public/hand-thumbs-up-fill.svg' />
             </button>
         )}
       </p>
-      <div>
+      <div className='row-start-3 text-center col-start-2 col-end-3'>
         <h3 className='font-bold text-2xl'>Comments</h3>
         {user && <CommentForm />}
         <ul className='list-disc list-inside'>
@@ -60,7 +60,7 @@ const BlogPage = () => {
           ))}
         </ul>
       </div>
-      <p>added by {blog.user.name}</p>
+      <p className="col-span-1 row-start-1 row-start-2 row-end-3 text-right m-10 text-2xl text-blue-400 font-momo-trust-display">added by {blog.user.name}</p>
       {blog.user.id === user?.id && (
         <button
           onClick={handleRemove}

@@ -1,5 +1,4 @@
 import {useSelector} from "react-redux";
-import Login from "./Login.jsx";
 import {logOut} from "../reducers/authReducer.js";
 import {setNotification} from "../reducers/notificationReducer.js";
 import {useDispatch} from "react-redux";
@@ -28,7 +27,7 @@ const Navbar = () => {
           </div>
         )}
         {!user && (
-          <Link to='/login' className="text-blue-200 p-3 w-full text-center text-4xl font-black font-momo-trust-display">Login</Link>
+          <Link to='/login' className="hover:text-blue-300 transition-all ease-in-out text-blue-200 p-3 w-full text-center text-4xl font-black font-momo-trust-display">Login</Link>
         )}
       </div>
     </nav>

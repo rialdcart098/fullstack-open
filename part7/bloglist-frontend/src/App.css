@@ -4,3 +4,8 @@
 @theme {
     --font-momo-trust-display: "Momo Trust Display", sans-serif;
 }
+@layer base {
+  input[type="text"] {
+    @apply bg-blue-50 rounded-lg m-3;
+  }
+}
