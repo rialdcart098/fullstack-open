@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import blogService from '../services/blogs.js';
-import { useSelector } from 'react-redux';
 
 const blogSlice = createSlice({
   name: 'blogs',
@@ -46,8 +45,10 @@ export const like = id => {
     const blog = getState().blogs.find(blog => blog.id === id)
     const updatedBlog = {
       ...blog,
-      likes: blog.likes + 1
+      likes: blog.likes + 1,
+      user: blog.user.id
     }
+    console.log(updatedBlog)
     await blogService.update(updatedBlog);
     dispatch(updateBlog(updatedBlog));
   };
@@ -58,8 +59,8 @@ export const addComment = (id, comment) => {
     const updatedBlog = {
       ...blog,
       comments: [...blog.comments, comment],
+      user: blog.user.id
     }
-    console.log(updatedBlog)
     await blogService.update(updatedBlog);
     dispatch(updateBlog(updatedBlog))
   }

@@ -10,8 +10,7 @@ import BlogForm from "./components/BlogForm.jsx";
 import BlogPage from "./components/BlogPage.jsx"
 import Notification from "./components/Notification.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { setNotification } from "./reducers/notificationReducer.js";
-import { logOut, setUser } from "./reducers/authReducer.js";
+import { setUser } from "./reducers/authReducer.js";
 import blogService from "./services/blogs.js";
 import {initializeUsers} from "./reducers/usersReducer.js";
 import {initializeBlogs} from "./reducers/blogReducer.js";
@@ -32,15 +31,16 @@ const App = () => {
   }, [dispatch]);
   return (
     <Router>
-      <div className="grid grid-cols-1 grid-rows-[0.25fr_2fr_0.5fr] gap-4 w-screen h-screen bg-blue-950 font-merriweather">
+      <div className="grid grid-cols-1 grid-rows-[0.25fr_2fr_0.5fr] gap-4 w-screen h-screen bg-gray-900 font-merriweather">
         <Navbar className='h-full' />
         <div>
-          <h1 className="text-6xl text-stone-950 font-black font-momo-trust-display">BLOGS</h1>
+          <h1 className="m-2 text-6xl text-gray-200 font-black font-momo-trust-display select-none">BLOGS APP</h1>
           <Routes>
             <Route path="/users" element={<Users/>}/>
             <Route path="/" element={<Blogs/>}/>
             <Route path="/users/:id" element={<User/>}/>
             <Route path="/blogs/:id" element={<BlogPage/>}/>
+            <Route path="/login" element={<Login/>}/>
           </Routes>
           <Notification/>
           {user && <BlogForm/>}

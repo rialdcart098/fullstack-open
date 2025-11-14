@@ -5,12 +5,14 @@ import { setNotification } from "../reducers/notificationReducer.js";
 import { useDispatch } from "react-redux";
 import {loginUser} from "../reducers/authReducer.js";
 import { useField } from "../hooks.js";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
   const { clear: clearUsername, ...username } = useField("text", "username");
   const { clear: clearPassword, ...password } = useField("password", "password");
   const [visible, setVisible] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -20,6 +22,7 @@ const Login = () => {
       clearUsername();
       clearPassword();
       dispatch(setNotification({ message: `Welcome back ${user.name}`, good: true }, 5));
+      navigate('/')
     } catch {
       dispatch(setNotification({
         message: "Username or password is incorrect",

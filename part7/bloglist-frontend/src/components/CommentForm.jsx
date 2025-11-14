@@ -18,7 +18,7 @@ const CommentForm = () => {
             clearComment()
             return
         }
-        dispatch(addComment(blog.id, comment))
+        dispatch(addComment(blog.id, comment.value))
     }
     return (
         <form onSubmit={handleComment}>
