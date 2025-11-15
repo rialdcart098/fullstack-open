@@ -9,21 +9,28 @@ const Blog = ({ blog }) => {
     marginBottom: 5,
   };
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className='font-momo-trust-display flex justify-between items-center bg-blue-950 hover:bg-blue-900 hover:text-blue-100 transition-all ease-in-out'>
       <Link to={`/blogs/${blog.id}`}>
         {blog.title} by {blog.author}
       </Link>
+      <span>{blog.likes !== 1 && (
+        `${blog.likes} likes`
+      )}{blog.likes === 1 && (
+        `${blog.likes} like`
+      )}</span>
     </div>
   );
 };
 const Blogs = () => {
   const blogs = useSelector((state) => state.blogs);
-  const user = useSelector((state) => state.auth);
   return (
     <>
       {[...blogs].sort((leastLikes, mostLikes) => mostLikes.likes - leastLikes.likes)
         .map(blog => (
-          <Blog key={blog.id} blog={blog} user={user} />
+          <Blog 
+            key={blog.id}
+            blog={blog}
+          />
         ))}
     </>
   )

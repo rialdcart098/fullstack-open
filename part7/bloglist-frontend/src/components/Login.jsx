@@ -1,6 +1,5 @@
 import TextInput from "./TextInput.jsx";
-import Togglable from "./Togglable.jsx";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import { setNotification } from "../reducers/notificationReducer.js";
 import { useDispatch } from "react-redux";
 import {loginUser} from "../reducers/authReducer.js";
@@ -10,9 +9,13 @@ import {useNavigate} from "react-router-dom";
 const Login = () => {
   const { clear: clearUsername, ...username } = useField("text", "username");
   const { clear: clearPassword, ...password } = useField("password", "password");
-  const [visible, setVisible] = useState(false);
+  const [, setVisible] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem("user");
+    if (loggedUserJSON) navigate('/');
+  }, [navigate])
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -31,22 +34,20 @@ const Login = () => {
     }
   };
   return (
-    <Togglable
-      visible={visible}
-      toggleVisibility={() => setVisible(!visible)}
-      buttonLabel="Log In"
-    >
-      <h2>Log In</h2>
-      <form onSubmit={handleLogin}>
-        <TextInput
-          {...username}
-        />
-        <TextInput
-          {...password}
-        />
-        <button type="submit">Log In</button>
-      </form>
-    </Togglable>
+    <div className='min-h-screen flex items-center justify-center'>
+      <div className='text-center gap-4 p-20 h-100 w-full max-w-md bg-gray-500 rounded-md shadow-lg shadow-black'>
+        <h2 className='text-blue-950 font-black text-3xl font-momo-trust-display'>Log In</h2>
+        <form onSubmit={handleLogin}>
+          <TextInput className='mb-4 mt-4 p-2 shadow-inner w-full'
+            {...username}
+          />
+          <TextInput className='mb-4 p-2 shadow-inner w-full'
+            {...password}
+          />
+          <button type="submit" className='w-full'>Log In</button>
+        </form>
+      </div>
+    </div>
   );
 };
 export default Login;

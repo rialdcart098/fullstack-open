@@ -13,18 +13,21 @@ const Navbar = () => {
   };
   return (
     <nav className="row-span-1 h-full">
-      <div className="bg-gray-950 grid grid-cols-3 h-full p-1 gap-3 place-items-center border-b-1 border-b-blue-300">
+      <div className="bg-gray-950 grid grid-cols-4 h-full p-1 gap-3 place-items-center border-b-1 border-b-blue-300">
         <Link to='/' className="hover:text-blue-300 transition-all ease-in-out text-blue-200 p-3 w-full text-center text-4xl font-black font-momo-trust-display">Blogs</Link>
         <Link to='/users' className="hover:text-blue-300 transition-all ease-in-out text-blue-200 p-3 w-full text-center text-4xl font-black font-momo-trust-display">Users</Link>
         {user && (
-          <div className="col-span-1 flex justify-end items-center gap-3">
-            <p className='text-blue-300 font-medium select-none'>{user.name} logged in</p>
-            <button onClick={handleLogOut}
-              className='cursor-pointer bg-blue-300 text-gray-800 p-2 rounded-xl font-medium hover:drop-shadow-[0_0_6px_rgba(191,219,254,1)] transition-all ease-in-out'
-            >
-              Logout
-            </button>
-          </div>
+          <>
+            <Link to='/post' className="hover:text-blue-300 transition-all ease-in-out text-blue-200 p-3 w-full text-center text-4xl font-black font-momo-trust-display">Post</Link>
+            <div className="col-span-1 flex justify-end items-center gap-3">
+              <p className='text-blue-300 font-medium select-none'>{user.name} logged in</p>
+              <button onClick={handleLogOut}
+                      className='cursor-pointer bg-blue-300 text-gray-800 p-2 rounded-xl font-medium hover:drop-shadow-[0_0_6px_rgba(191,219,254,1)] transition-all ease-in-out'
+              >
+                Logout
+              </button>
+            </div>
+          </>
         )}
         {!user && (
           <Link to='/login' className="hover:text-blue-300 transition-all ease-in-out text-blue-200 p-3 w-full text-center text-4xl font-black font-momo-trust-display">Login</Link>

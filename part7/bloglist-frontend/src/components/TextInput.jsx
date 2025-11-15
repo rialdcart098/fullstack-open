@@ -2,9 +2,9 @@ const TextInput = (props) => {
   return (
     <div>
       <label>
-        {props.name}
         <input
           {...props}
+          placeholder={props.name}
         />
       </label>
     </div>

@@ -3,6 +3,7 @@ import { useField } from "../hooks"
 import { useParams } from "react-router-dom"
 import TextInput from "./TextInput"
 import { addComment } from "../reducers/blogReducer"
+import {setNotification} from "../reducers/notificationReducer.js";
 
 const CommentForm = () => {
     const params = useParams()
@@ -11,18 +12,23 @@ const CommentForm = () => {
         .find(blog => blog.id === params.id)
     )
     const dispatch = useDispatch()
-    const { clear: clearComment, ...comment } = useField('text', 'comment');
+    const { clear: clearComment, ...comment } = useField('text', 'Comment');
     const handleComment = async (event) => {
-        event.preventDefault();
-        if (!comment.value){
-            clearComment()
-            return
-        }
-        dispatch(addComment(blog.id, comment.value))
+      event.preventDefault();
+      if (!comment.value){
+          clearComment()
+          return
+      } else if (blog.comments.includes(comment.value)){
+          dispatch(setNotification({ message: 'Duplicate comment detected', good: false }, 5))
+          clearComment()
+      }
+      dispatch(addComment(blog.id, comment.value))
+      clearComment()
+      dispatch(setNotification({ message: 'Comment added successfully', good: true }, 5))
     }
     return (
         <form onSubmit={handleComment}>
-            <TextInput {...comment} />
+            <TextInput {...comment} className='w-full box-border' />
             <button type='submit'>Add anonymous comment</button>
         </form>
     )

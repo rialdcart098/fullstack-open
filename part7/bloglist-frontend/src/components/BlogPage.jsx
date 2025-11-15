@@ -3,7 +3,6 @@ import {useParams, useNavigate} from 'react-router-dom'
 import {like, deleteBlog} from "../reducers/blogReducer.js";
 import { setNotification } from '../reducers/notificationReducer.js';
 import CommentForm from './CommentForm.jsx';
-import {useState} from "react";
 
 
 const BlogPage = () => {
@@ -14,7 +13,6 @@ const BlogPage = () => {
   const blog = useSelector((state) => state.blogs.find(
     blog => blog.id === params.id
   ))
-  const [likes, setLikes] = useState(blog?.likes);
   if (!blog) return null;
   const handleRemove = () => {
     if (window.confirm(`Delete ${blog.title}? Can't be reversed.`)){
@@ -25,22 +23,27 @@ const BlogPage = () => {
   }
   const handleLike = () => {
     dispatch(like(blog.id))
-    setLikes(likes + 1)
     dispatch(setNotification({ message: `You liked ${blog.title}`, good: true }, 5))
   }
   return (
-    <div className="grid grid-cols-2 grid-rows-5">
+    <div className="grid w-full h-screen grid-cols-2 grid-rows-[auto_auto_1fr] overflow-hidden">
       <h2 className=" font-bold text-2xl col-span-2 text-blue-300 p-3 bg-blue-950 text-center">
         {blog.title} by {blog.author}
       </h2>
-      <br />
-      <a href={blog.url} className="row-start-2 row-end-3 m-2 text-blue font-bold text-xl p-2 underline text-indigo-600 hover:text-indigo-300 transition-all ease-in-out">
-        {blog.url}
-      </a>
-      <p className="text-blue-400 font-medium font-momo-trust-display row-start-3 row-end-4 col-span-1">
+      <div className='row-start-2 row-end-3'>
+        <p
+        className="m-2 text-2xl text-blue-400 font-momo-trust-display">
+          added by {blog.user.name}
+        </p>
+        <a href={blog.url}
+           className="m-2 text-blue font-bold text-xl p-2 underline text-indigo-600 hover:text-indigo-300 transition-all ease-in-out">
+          Read the blog here
+        </a>
+      </div>
+      <div className="text-2xl text-blue-400 font-medium font-momo-trust-display row-start-3 row-end-4 col-span-1">
         Likes:
-        <span className="likes-value mx-2">
-          {likes}
+        <span className="likes-value mx-2 text-3xl">
+          {blog.likes}
         </span>
         {user && (
             <button
@@ -50,25 +53,26 @@ const BlogPage = () => {
               <img src='../../public/hand-thumbs-up-fill.svg' />
             </button>
         )}
-      </p>
-      <div className='row-start-3 text-center col-start-2 col-end-3'>
-        <h3 className='font-bold text-2xl'>Comments</h3>
+        {blog.user.id === user?.id && (
+          <button
+            onClick={handleRemove}
+            className='bg-red-600 hover:drop-shadow-red-600 transition-all ease-in-out'
+          >
+            Delete
+          </button>
+        )}
+      </div>
+      <div className="flex flex-col min-h-0 bg-gray-700 col-start-2 col-end-3 row-start-2 row-end-4 p-3">
+        <h3 className='font-bold text-2xl'>Forum</h3>
         {user && <CommentForm />}
-        <ul className='list-disc list-inside'>
+        <ul className='flex-1 overflow-y-auto min-h-0 space-y-2'>
           {[...blog.comments].map(c => (
-            <li key={c}>{c}</li>
+            <li key={c} className='odd:bg-gray-700 even:bg-gray-600 p-2'>
+              {c}
+            </li>
           ))}
         </ul>
       </div>
-      <p className="col-span-1 row-start-1 row-start-2 row-end-3 text-right m-10 text-2xl text-blue-400 font-momo-trust-display">added by {blog.user.name}</p>
-      {blog.user.id === user?.id && (
-        <button
-          onClick={handleRemove}
-          className='text-white text-4xl '
-        >
-          Delete
-        </button>
-      )}
     </div>
   );
 }

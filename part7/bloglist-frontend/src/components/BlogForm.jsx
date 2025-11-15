@@ -29,20 +29,19 @@ const BlogForm = () => {
     clearUrl();
   };
   return (
-    <Togglable
-      buttonLabel="Add Blogs"
-      toggleVisibility={() => setVisible(!visible)}
-      visible={visible}
-    >
-      <form onSubmit={handleBlog}>
-        <div>
-          <TextInput {...title} />
-          <TextInput {...author} />
-          <TextInput {...url} />
-          <button type="submit">Create</button>
-        </div>
-      </form>
-    </Togglable>
+    <div className='min-h-screen flex items-center justify-center'>
+      <div className='text-center gap-4 p-20 h-100 w-full max-w-md bg-gray-500 rounded-md shadow-lg shadow-black'>
+        <h2 className='text-blue-950 font-black text-3xl font-momo-trust-display'>Post</h2>
+        <form onSubmit={handleBlog}>
+          <div>
+            <TextInput {...title} className='mb-2 mt-2 p-2 shadow-inner w-full' />
+            <TextInput {...author} className='mb-2 mt-2 p-2 shadow-inner w-full' />
+            <TextInput {...url} className='mb-4 mt-2 p-2 shadow-inner w-full' />
+            <button type="submit" className='w-full'>Create</button>
+          </div>
+        </form>
+      </div>
+    </div>
   );
 };
 export default BlogForm;
