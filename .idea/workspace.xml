@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2745e502-2cec-4037-936f-6e1ed6de9ad0" name="Changes" comment="Added login functionality, (4.21)">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.agent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.ask2agent.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilot.data.migration.edit.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/copilotDiffState.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/fullstack-open.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="2745e502-2cec-4037-936f-6e1ed6de9ad0" name="Changes" comment="Added login functionality, (4.21)" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,11 +94,11 @@
       <recent name="C:\Users\yourl\Desktop\fullstack-open\part3" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\yourl\OneDrive\Desktop\fullstack-open\part5" />
       <recent name="C:\Users\yourl\OneDrive\Desktop\fullstack-open\part7\bloglist-frontend\public" />
       <recent name="C:\Users\yourl\OneDrive\Desktop\fullstack-open\part7\bloglist-frontend\src\reducers" />
       <recent name="C:\Users\yourl\OneDrive\Desktop\fullstack-open\part7" />
       <recent name="C:\Users\yourl\OneDrive\Desktop\fullstack-open\part6\query-anecdotes" />
-      <recent name="C:\Users\yourl\Desktop\fullstack-open\part5\playwright" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -264,7 +254,7 @@
       <workItem from="1763075754761" duration="9525000" />
       <workItem from="1763156685924" duration="11723000" />
       <workItem from="1763176087483" duration="302000" />
-      <workItem from="1763180512818" duration="6635000" />
+      <workItem from="1763180512818" duration="6893000" />
     </task>
     <task id="LOCAL-00001" summary="Added unit tests for the users">
       <option name="closed" value="true" />
