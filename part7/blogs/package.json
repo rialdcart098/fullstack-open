@@ -10,7 +10,8 @@
     "dev": "cross-env NODE_ENV=development --watch index.js",
     "test": "cross-env NODE_ENV=test node --test",
     "lint": "eslint ",
-    "build": "cd ../bloglist-frontend && rm -rf dist && npm run build"
+    "build": "cd ../bloglist-frontend && rm -rf dist && npm run build",
+    "deploy": "npm i && cd ../bloglist-frontend && npm run build && npm install && npm audit fix --force"
   },
   "repository": {
     "type": "git",

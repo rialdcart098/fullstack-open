@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { like, deleteBlog } from "../reducers/blogReducer.js";
 import { setNotification } from "../reducers/notificationReducer.js";
 import CommentForm from "./CommentForm.jsx";
+import thumb from "../../hand-thumbs-up-fill.svg";
 
 const BlogPage = () => {
   const params = useParams();
@@ -53,7 +54,7 @@ const BlogPage = () => {
             onClick={handleLike}
             className="m-3 hover:bg-emerald-200 cursor-pointer p-2 bg-blue-200 text-white rounded-2xl font-momo-trust-display hover:drop-shadow-[0_0_6px_rgba(164,244,207,1)] transition-all ease-in-out"
           >
-            <img src="../../public/hand-thumbs-up-fill.svg" alt="like" />
+            <img src={thumb} alt="like" />
           </button>
         )}
         {blog.user.id === user?.id && (
