@@ -26,8 +26,8 @@ const BlogPage = () => {
     dispatch(setNotification({ message: `You liked ${blog.title}`, good: true }, 5))
   }
   return (
-    <div className="grid w-full h-screen grid-cols-2 grid-rows-[auto_auto_1fr] overflow-hidden">
-      <h2 className=" font-bold text-2xl col-span-2 text-blue-300 p-3 bg-blue-950 text-center">
+    <div className="grid w-full h-full grid-cols-2 grid-rows-[0.1fr_0.25fr_auto] overflow-hidden">
+      <h2 className="flex items-center justify-center font-bold text-2xl col-span-2 text-blue-300 p-3 bg-blue-950 text-center">
         {blog.title} by {blog.author}
       </h2>
       <div className='row-start-2 row-end-3'>
@@ -50,24 +50,24 @@ const BlogPage = () => {
               onClick={handleLike}
               className='m-3 hover:bg-emerald-200 cursor-pointer p-2 bg-blue-200 text-white rounded-2xl font-momo-trust-display hover:drop-shadow-[0_0_6px_rgba(164,244,207,1)] transition-all ease-in-out'
             >
-              <img src='../../public/hand-thumbs-up-fill.svg' />
+              <img src='../../public/hand-thumbs-up-fill.svg' alt='like' />
             </button>
         )}
         {blog.user.id === user?.id && (
           <button
             onClick={handleRemove}
-            className='bg-red-600 hover:drop-shadow-red-600 transition-all ease-in-out'
+            className='bg-red-600 hover:shadow-[0_0_10px_rgba(220,38,38,0.7)] transition-all ease-in-out'
           >
             Delete
           </button>
         )}
       </div>
-      <div className="flex flex-col min-h-0 bg-gray-700 col-start-2 col-end-3 row-start-2 row-end-4 p-3">
-        <h3 className='font-bold text-2xl'>Forum</h3>
+      <div className="flex flex-col bg-gray-700 col-start-2 col-end-3 row-start-2 row-end-4 p-3 min-h-0">
+        <h3 className='font-bold text-2xl mb-2'>Forum</h3>
         {user && <CommentForm />}
-        <ul className='flex-1 overflow-y-auto min-h-0 space-y-2'>
+        <ul className='flex-1 overflow-y-auto min-h-0 space-y-1 scrollbar-thin scrollbar-thumb-gray-500 scrollbar-track-gray-700'>
           {[...blog.comments].map(c => (
-            <li key={c} className='odd:bg-gray-700 even:bg-gray-600 p-2'>
+            <li key={c} className='odd:bg-gray-700 even:bg-gray-600 px-2 py-1 rounded'>
               {c}
             </li>
           ))}

@@ -12,7 +12,3 @@
         @apply cursor-pointer font-momo-trust-display bg-blue-300 text-gray-800 p-2 rounded-xl font-medium hover:drop-shadow-[0_0_6px_rgba(191,219,254,1)] transition-all ease-in-out;
     }
 }
-/*
-box-shadow: inset -12px -12px 30px 5px rgba(255, 255, 255, 0.5),
-            inset 12px 12px 30px 5px rgba(0, 0, 0, 0.1);
-*/

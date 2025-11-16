@@ -24,7 +24,7 @@ const Blog = ({ blog }) => {
 const Blogs = () => {
   const blogs = useSelector((state) => state.blogs);
   return (
-    <>
+    <div className="h-full overflow-y-auto min-h-0">
       {[...blogs].sort((leastLikes, mostLikes) => mostLikes.likes - leastLikes.likes)
         .map(blog => (
           <Blog 
@@ -32,7 +32,7 @@ const Blogs = () => {
             blog={blog}
           />
         ))}
-    </>
+    </div>
   )
 }
 export default Blogs;
