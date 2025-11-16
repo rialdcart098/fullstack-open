@@ -19,7 +19,7 @@ mongoose
     logger.error('Failed to connect to MongoDB:', err.message)
   })
 app.use(cors({
-  origin: 'https://unfiltered-blogs-5o2q4t48f-rialdcart098s-projects.vercel.app'
+  origin: 'https://unfiltered-blogs.vercel.app'
 }))
 
 app.use(express.json())
