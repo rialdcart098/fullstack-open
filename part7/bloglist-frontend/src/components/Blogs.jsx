@@ -1,5 +1,5 @@
-import {useSelector} from "react-redux";
-import {Link} from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Blog = ({ blog }) => {
   const blogStyle = {
     paddingTop: 10,
@@ -9,15 +9,17 @@ const Blog = ({ blog }) => {
     marginBottom: 5,
   };
   return (
-    <div style={blogStyle} className='font-momo-trust-display flex justify-between items-center bg-blue-950 hover:bg-blue-900 hover:text-blue-100 transition-all ease-in-out'>
+    <div
+      style={blogStyle}
+      className="font-momo-trust-display flex justify-between items-center bg-blue-950 hover:bg-blue-900 hover:text-blue-100 transition-all ease-in-out"
+    >
       <Link to={`/blogs/${blog.id}`}>
         {blog.title} by {blog.author}
       </Link>
-      <span>{blog.likes !== 1 && (
-        `${blog.likes} likes`
-      )}{blog.likes === 1 && (
-        `${blog.likes} like`
-      )}</span>
+      <span>
+        {blog.likes !== 1 && `${blog.likes} likes`}
+        {blog.likes === 1 && `${blog.likes} like`}
+      </span>
     </div>
   );
 };
@@ -25,14 +27,12 @@ const Blogs = () => {
   const blogs = useSelector((state) => state.blogs);
   return (
     <div className="h-full overflow-y-auto min-h-0">
-      {[...blogs].sort((leastLikes, mostLikes) => mostLikes.likes - leastLikes.likes)
-        .map(blog => (
-          <Blog 
-            key={blog.id}
-            blog={blog}
-          />
+      {[...blogs]
+        .sort((leastLikes, mostLikes) => mostLikes.likes - leastLikes.likes)
+        .map((blog) => (
+          <Blog key={blog.id} blog={blog} />
         ))}
     </div>
-  )
-}
+  );
+};
 export default Blogs;
