@@ -7,6 +7,7 @@ const logger = require('./utils/logger')
 const config = require('./utils/config')
 const middleware = require('./utils/middleware')
 const path = require('path')
+const cors = require('cors')
 
 const app = express()
 mongoose
@@ -17,6 +18,10 @@ mongoose
   .catch((err) => {
     logger.error('Failed to connect to MongoDB:', err.message)
   })
+app.use(cors({
+  origin: 'https://unfiltered-blogs-ejd1d39ow-rialdcart098s-projects.vercel.app'
+}))
+
 app.use(express.json())
 app.use('/', express.static(path.join('..', 'bloglist-frontend', 'dist')))
 app.use('/api/blogs', middleware.tokenExtractor, blogsRouter)
